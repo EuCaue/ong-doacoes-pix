@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="pt-bren">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOE | Central de Cidadania</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="script.js" async></script>
+  </head>
+  <body>
+    <main>
+      <h1>DOAÇÃO CENTRAL DE CIDADANIA</h1>
+      <form>
+        <span class="field-group">
+          <div class="field">
+            <label for="regiao">Região (UF):</label>
+            <select id="regiao">
+              <option value="">Selecione</option>
+              <option value="BA">Bahia</option>
+              <option value="RJ">Rio de Janeiro</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="municipio">Município:</label>
+            <select id="municipio">
+              <option value="">Selecione uma região</option>
+              <option value="SALVADOR">Salvador</option>
+              <option value="Camaçari">Camaçari</option>
+              <option value="Feira de Santana">Feira de Santana</option>
+            </select>
+          </div>
+        </span>
+        <button type="submit">Gerar Chave PIX</button>
+      </form>
+    </main>
+  </body>
+</html>
