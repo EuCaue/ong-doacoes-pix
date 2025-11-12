@@ -14,18 +14,18 @@ A iniciativa contribui diretamente para a **ODS 10 – Redução das Desigualdad
 
 ## 🧩 Estrutura do Projeto
 
-- **Frontend:** HTML, CSS e JavaScript  
-- **Funcionalidade Principal:** geração e exibição de QR Code PIX  
-- **Planejamento:** fluxogramas, diagramas técnicos e protótipos de interface  
+- **Frontend:** HTML, CSS e JavaScript
+- **Funcionalidade Principal:** geração e exibição de QR Code PIX
+- **Planejamento:** fluxogramas, diagramas técnicos e protótipos de interface
 - **Evidências:** comunicação com a ONG, termo de colaboração e planejamento técnico (ver PEX IV)
 
 ---
 
 ## 🚀 Próximos Passos (PEX V)
 
-- Implementar a interface completa de doação responsiva  
-- Integrar backend para registro das doações  
-- Testar acessibilidade e performance  
+- Implementar a interface completa de doação responsiva
+- Integrar backend para registro das doações
+- Testar acessibilidade e performance
 - Publicar versão final para uso da ONG
 
 ---
@@ -33,9 +33,10 @@ A iniciativa contribui diretamente para a **ODS 10 – Redução das Desigualdad
 ## 🧠 Aprendizados
 
 Durante o desenvolvimento, foram aplicados conceitos de:
-- Levantamento de requisitos reais com base em entrevistas  
-- Planejamento técnico e modelagem de sistemas  
-- Acessibilidade e design centrado no usuário  
+
+- Levantamento de requisitos reais com base em entrevistas
+- Planejamento técnico e modelagem de sistemas
+- Acessibilidade e design centrado no usuário
 - Comunicação e colaboração com instituições sociais
 
 ---
@@ -50,16 +51,14 @@ Durante o desenvolvimento, foram aplicados conceitos de:
 
 ## 📎 Links Úteis
 
-- 🌐 [Site atual da ONG](https://drive.proton.me/urls/EP20S09WFM#jITPeCi1WQRH)  
-- 📄 [Termo de Colaboração Assinado](https://drive.proton.me/urls/EP20S09WFM#jITPeCi1WQRH)  
-- 🧾 [Relatório e Evidências do PEX IV](https://github.com/EuCaue/ong-doacoes-pix/tree/main/docs)
+- 🌐 [Site atual da ONG](https://drive.proton.me/urls/EP20S09WFM#jITPeCi1WQRH)
 
 ---
 
 ## 👨‍💻 Autor
 
 **Cauê Adriano de Souza Castro**  
-Desenvolvedor Frontend • Salvador – BA  
+Desenvolvedor FullStack • Salvador – BA  
 [LinkedIn](https://linkedin.com/in/caue-souza) | [Email](mailto:souzacaue@proton.me)
 
 ---
