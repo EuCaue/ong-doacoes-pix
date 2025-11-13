@@ -158,7 +158,6 @@ window.document.addEventListener("DOMContentLoaded", async () => {
   regiaoSelect.addEventListener("change", () => {
     cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
     const cidades = DATA[regiaoSelect.value];
-    console.log("CIDADES", cidades);
     if (!cidades) return;
 
     for (const cidade in cidades) {
@@ -170,9 +169,18 @@ window.document.addEventListener("DOMContentLoaded", async () => {
   });
   form.addEventListener("submit", (ev) => {
     ev.preventDefault();
-    console.log(regiaoSelect.value, cidadeSelect.value);
     const estado = regiaoSelect.value;
     const cidade = cidadeSelect.value;
-    console.log(DATA[estado][cidade].chave);
+    const chavePix = DATA[estado][cidade].chave;
+    const pix = new PixPayloadGenerator(
+      chavePix, // Chave
+      "Central Cidadania", // Nome
+      cidade, // Cidade
+      {
+        amount: 20, // Valor padrão
+        txid: "Doação Central da Cidadania", // Descrição
+      }, // Opções
+    );
+    const pixResultado = pix.generate();
   });
 });
