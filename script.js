@@ -210,6 +210,18 @@ window.document.addEventListener("DOMContentLoaded", async () => {
     //  TODO: clear qr code
     loadCities(cidadeSelect, regiaoSelect.value);
   });
+  valor.addEventListener("keydown", (ev) => {
+    //  TODO: add Intl formating;
+    if (
+      ev.key === "Backspace" ||
+      ev.key === "ArrowLeft" ||
+      ev.key === "ArrowRight" ||
+      ev.key === "Delete"
+    ) {
+      return;
+    }
+    if (!/\d/.test(ev.key)) {
+      ev.preventDefault();
     }
   });
   form.addEventListener("submit", (ev) => {
