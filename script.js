@@ -126,16 +126,16 @@ class PixPayloadGenerator {
 const DATA = {
   BA: {
     Salvador: {
-      chave: "+5571999999999",
+      chave: "+5571997170057",
     },
     Camaçari: {
-      chave: "+5571999999999",
+      chave: "+5571997170057",
     },
     "Feira de Santana": {
-      chave: "+5575999999999",
+      chave: "+5575988270192",
     },
     "Central/Sertão": {
-      chave: "+5574999999999",
+      chave: "+5574999716726",
     },
   },
   RJ: {
