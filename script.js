@@ -198,6 +198,11 @@ function createPixQrCode(key, city, options) {
     });
 }
 
+function deleteQrCode() {
+  const qrCodeElement = document.getElementById("qr-code");
+  qrCodeElement.replaceChildren();
+}
+
 window.document.addEventListener("DOMContentLoaded", async () => {
   const main = document.querySelector("main");
   const regiaoSelect = main.querySelector("#regiao");
@@ -207,7 +212,7 @@ window.document.addEventListener("DOMContentLoaded", async () => {
   loadRegion(regiaoSelect);
   loadCities(cidadeSelect, regiaoSelect.value);
   regiaoSelect.addEventListener("change", () => {
-    //  TODO: clear qr code
+    deleteQrCode();
     loadCities(cidadeSelect, regiaoSelect.value);
   });
   valor.addEventListener("keydown", (ev) => {
