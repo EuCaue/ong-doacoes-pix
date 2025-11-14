@@ -145,17 +145,27 @@ const DATA = {
   },
 };
 
-window.document.addEventListener("DOMContentLoaded", async () => {
-  const main = document.querySelector("main");
-  const regiaoSelect = main.querySelector("#regiao");
-  const cidadeSelect = main.querySelector("#municipio");
-  const form = main.querySelector("form");
+function loadCities(selectElement, region) {
+  selectElement.innerHTML = '<option value="">Selecione a cidade</option>';
+  const cidades = DATA[region];
+  if (!cidades) return;
+
+  for (const cidade in cidades) {
+    const option = document.createElement("option");
+    option.value = cidade;
+    option.textContent = cidade;
+    selectElement.appendChild(option);
+  }
+}
+
+function loadRegion(selectElement) {
   for (const estado in DATA) {
     const option = document.createElement("option");
     option.setAttribute("value", estado);
     option.textContent = estado;
-    regiaoSelect.appendChild(option);
+    selectElement.appendChild(option);
   }
+}
 
 function createPixQrCode(key, city, options) {
   const pix = new PixPayloadGenerator(
@@ -194,16 +204,12 @@ window.document.addEventListener("DOMContentLoaded", async () => {
   const cidadeSelect = document.querySelector("#municipio");
   const valor = main.querySelector("#valor");
   const form = main.querySelector("form");
+  loadRegion(regiaoSelect);
+  loadCities(cidadeSelect, regiaoSelect.value);
   regiaoSelect.addEventListener("change", () => {
-    cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
-    const cidades = DATA[regiaoSelect.value];
-    if (!cidades) return;
-
-    for (const cidade in cidades) {
-      const option = document.createElement("option");
-      option.value = cidade;
-      option.textContent = cidade;
-      cidadeSelect.appendChild(option);
+    //  TODO: clear qr code
+    loadCities(cidadeSelect, regiaoSelect.value);
+  });
     }
   });
   form.addEventListener("submit", (ev) => {
