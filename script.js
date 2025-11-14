@@ -169,9 +169,9 @@ function loadRegion(selectElement) {
 
 function createPixQrCode(key, city, options) {
   const pix = new PixPayloadGenerator(
-    chavePix, // Chave
+    key, // Chave
     "Central Cidadania", // Nome
-    cidade, // Cidade
+    city, // Cidade
     options,
   );
   const pixResultado = pix.generate();
