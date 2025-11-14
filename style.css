@@ -96,7 +96,8 @@ main {
   flex-direction: column;
   h1 {
     text-transform: uppercase;
-    padding: var(--space-lg);
+    padding-inline: var(--space-lg);
+    text-align: center;
   }
   form {
     display: flex;
@@ -109,7 +110,8 @@ main {
     gap: var(--space-lg);
     width: 90%;
     max-width: 400px;
-    height: 50%;
+    min-height: 50%;
+    max-height: auto;
     padding: var(--space-lg);
 
     .field-group {
@@ -137,6 +139,31 @@ main {
           padding: var(--space-sm);
           border-radius: var(--radius-md);
         }
+      }
+      #qr-code {
+        width: 25%;
+      }
+    }
+    #qr-code {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 80%;
+
+      #qr-svg {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin: auto;
+        max-width: 250px; /* optional */
+      }
+      #pix-copia {
+        font-family: monospace;
+        cursor: pointer;
+        max-width: 100%;
+        font-size: calc(var(--font-size-base) / 1.5);
+        word-break: break-all;
       }
     }
   }

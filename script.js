@@ -157,6 +157,43 @@ window.document.addEventListener("DOMContentLoaded", async () => {
     regiaoSelect.appendChild(option);
   }
 
+function createPixQrCode(key, city, options) {
+  const pix = new PixPayloadGenerator(
+    chavePix, // Chave
+    "Central Cidadania", // Nome
+    cidade, // Cidade
+    options,
+  );
+  const pixResultado = pix.generate();
+
+  let qrSvgString = qr.encodeQR(pixResultado, "svg");
+  qrSvgString = qrSvgString.replace(
+    /^<svg /,
+    '<svg id="qr-svg" preserveAspectRatio="xMidYMid meet" ',
+  );
+  const qrCodeElement = document.getElementById("qr-code");
+  qrCodeElement.innerHTML = qrSvgString;
+  qrCodeElement.innerHTML += `
+<code id="pix-copia" title="Clique para copiar a chave copia e cola">
+    ${pixResultado}
+</code>
+`;
+  qrCodeElement
+    .querySelector("#pix-copia")
+    .addEventListener("click", async (ev) => {
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(pixResultado);
+        window.alert("Chave copiada para a área de transferência.");
+      }
+    });
+}
+
+window.document.addEventListener("DOMContentLoaded", async () => {
+  const main = document.querySelector("main");
+  const regiaoSelect = main.querySelector("#regiao");
+  const cidadeSelect = document.querySelector("#municipio");
+  const valor = main.querySelector("#valor");
+  const form = main.querySelector("form");
   regiaoSelect.addEventListener("change", () => {
     cidadeSelect.innerHTML = '<option value="">Selecione a cidade</option>';
     const cidades = DATA[regiaoSelect.value];
@@ -174,15 +211,10 @@ window.document.addEventListener("DOMContentLoaded", async () => {
     const estado = regiaoSelect.value;
     const cidade = cidadeSelect.value;
     const chavePix = DATA[estado][cidade].chave;
-    const pix = new PixPayloadGenerator(
-      chavePix, // Chave
-      "Central Cidadania", // Nome
-      cidade, // Cidade
-      {
-        amount: 20, // Valor padrão
-        txid: "Doação Central da Cidadania", // Descrição
-      }, // Opções
-    );
-    const pixResultado = pix.generate();
+    const opcoes = {
+      amount: 0, // Valor padrão
+      txid: "Doação Central de Cidadania", // Descrição
+    };
+    createPixQrCode(chavePix, cidade, opcoes);
   });
 });
