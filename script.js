@@ -73,7 +73,9 @@ class PixPayloadGenerator {
     );
 
     // Define o TXID. Para PIX estático, '***' é obrigatório se um ID não for fornecido.
-    const finalTxid = (this.txid || "***").substring(0, 25);
+    const finalTxid = this.#normalizeText(
+      (this.txid || "***").substring(0, 25),
+    ).replaceAll(" ", "");
 
     // Montagem do Payload
     let payload = this.#formatField("00", "01"); // Payload Format Indicator
