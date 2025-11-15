@@ -198,25 +198,66 @@ function createPixQrCode(key, city, options) {
     });
 }
 
+/** Deletes the QRCODE Element */
 function deleteQrCode() {
   const qrCodeElement = document.getElementById("qr-code");
   qrCodeElement.replaceChildren();
 }
 
+/**
+ * @param {string} s -
+ * @returns {string} - string only contain numbers
+ */
+function stringToOnlyNumbers(s) {
+  return String(s).replace(/[^0-9.,-]+/g, "");
+}
+
+/**
+ * @param {string} value - input to parse
+ * @returns {string} - parsed value
+ */
+function parseValor(value) {
+  let parsedValue = stringToOnlyNumbers(value);
+  const shouldReplace = parsedValue.split(".").length > 1;
+  if (shouldReplace) {
+    parsedValue = parsedValue.replaceAll(".", "").replaceAll(",", ".");
+  } else {
+    parsedValue = parsedValue.replaceAll(",", ".");
+  }
+  return parsedValue;
+}
+
 window.document.addEventListener("DOMContentLoaded", async () => {
   const main = document.querySelector("main");
   const regiaoSelect = main.querySelector("#regiao");
-  const cidadeSelect = document.querySelector("#municipio");
-  const valor = main.querySelector("#valor");
+  const cidadeSelect = main.querySelector("#municipio");
+  const valorInput = main.querySelector("#valor");
   const form = main.querySelector("form");
+  const formatter = new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    maximumFractionDigits: 2,
+    currencyDisplay: "symbol",
+    currency: "BRL",
+  });
   loadRegion(regiaoSelect);
   loadCities(cidadeSelect, regiaoSelect.value);
   regiaoSelect.addEventListener("change", () => {
     deleteQrCode();
     loadCities(cidadeSelect, regiaoSelect.value);
   });
-  valor.addEventListener("keydown", (ev) => {
-    //  TODO: add Intl formating;
+  valorInput.addEventListener("focus", (ev) => {
+    const value = ev.currentTarget.value;
+    ev.target.value = value.length > 1 ? stringToOnlyNumbers(value) : "";
+  });
+  valorInput.addEventListener("blur", (ev) => {
+    const value = parseValor(ev.currentTarget.value);
+    if (value.length < 1) {
+      ev.currentTarget.value = "";
+      return;
+    }
+    ev.currentTarget.value = formatter.format(value);
+  });
+  valorInput.addEventListener("keydown", (ev) => {
     if (
       ev.key === "Backspace" ||
       ev.key === "ArrowLeft" ||
@@ -234,8 +275,9 @@ window.document.addEventListener("DOMContentLoaded", async () => {
     const estado = regiaoSelect.value;
     const cidade = cidadeSelect.value;
     const chavePix = DATA[estado][cidade].chave;
+    const valor = parseValor(valorInput.value);
     const opcoes = {
-      amount: 0, // Valor padrão
+      amount: Number(valor), // Valor padrão
       txid: "Doação Central de Cidadania", // Descrição
     };
     createPixQrCode(chavePix, cidade, opcoes);
