@@ -190,7 +190,7 @@ function createPixQrCode(key, city, options) {
 `;
   qrCodeElement
     .querySelector("#pix-copia")
-    .addEventListener("click", async (ev) => {
+    .addEventListener("click", async () => {
       if (navigator.clipboard) {
         await navigator.clipboard.writeText(pixResultado);
         window.alert("Chave copiada para a área de transferência.");
@@ -233,6 +233,8 @@ window.document.addEventListener("DOMContentLoaded", async () => {
   const cidadeSelect = main.querySelector("#municipio");
   const valorInput = main.querySelector("#valor");
   const form = main.querySelector("form");
+  const btnGerarPix = main.querySelector("form button[type='submit']");
+  btnGerarPix.disabled = true;
   const formatter = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     maximumFractionDigits: 2,
@@ -244,6 +246,10 @@ window.document.addEventListener("DOMContentLoaded", async () => {
   regiaoSelect.addEventListener("change", () => {
     deleteQrCode();
     loadCities(cidadeSelect, regiaoSelect.value);
+    btnGerarPix.disabled = true;
+  });
+  cidadeSelect.addEventListener("change", () => {
+    btnGerarPix.disabled = false;
   });
   valorInput.addEventListener("focus", (ev) => {
     const value = ev.currentTarget.value;
