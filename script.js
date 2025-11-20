@@ -144,6 +144,22 @@ const DATA = {
     },
   },
 };
+/**
+ * @param {any} obj -
+ * @returns {obj} -
+ */
+function deepFreeze(obj) {
+  if (obj === null || typeof obj !== "object") {
+    return obj;
+  }
+  Object.keys(obj).forEach((key) => {
+    deepFreeze(obj[key]);
+  });
+
+  return Object.freeze(obj);
+}
+
+deepFreeze(DATA);
 
 function loadCities(selectElement, region) {
   selectElement.innerHTML = '<option value="">Selecione a cidade</option>';
