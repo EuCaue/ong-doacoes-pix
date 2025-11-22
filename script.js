@@ -197,21 +197,48 @@ function createPixQrCode(key, city, options) {
     /^<svg /,
     '<svg id="qr-svg" preserveAspectRatio="xMidYMid meet" ',
   );
-  const qrCodeElement = document.getElementById("qr-code");
-  qrCodeElement.innerHTML = qrSvgString;
-  qrCodeElement.innerHTML += `
-<code id="pix-copia" title="Clique para copiar a chave copia e cola">
-    ${pixResultado}
-</code>
-`;
-  qrCodeElement
-    .querySelector("#pix-copia")
-    .addEventListener("click", async () => {
-      if (navigator.clipboard) {
-        await navigator.clipboard.writeText(pixResultado);
-        window.alert("Chave copiada para a área de transferência.");
-      }
-    });
+  const qrSvgElement = new DOMParser().parseFromString(
+    qrSvgString,
+    "image/svg+xml",
+  ).firstChild;
+
+  const qrSvgWrapper = document.createElement("span");
+  qrSvgWrapper.appendChild(qrSvgElement.cloneNode(true));
+  qrSvgWrapper.setAttribute("title", "Clique para ampliar o QRCODE");
+
+  const qrCodeElement = document.querySelector("#qr-code");
+  const modal = document.querySelector("dialog");
+
+  const closeModalBtn = document.createElement("button");
+  closeModalBtn.textContent = "X";
+  closeModalBtn.title = "Clique para fechar";
+  closeModalBtn.setAttribute("autofocus", true);
+
+  const pixCopia = document.createElement("code");
+  pixCopia.setAttribute("id", "pix-copia");
+  pixCopia.setAttribute("title", "Clique para copiar a chave copia e cola");
+  pixCopia.textContent = pixResultado;
+
+  qrSvgWrapper.addEventListener("click", () => {
+    modal.appendChild(closeModalBtn);
+    modal.appendChild(qrSvgElement);
+    modal.showModal();
+  });
+
+  modal.addEventListener("click", () => {
+    modal.replaceChildren();
+    modal.close();
+  });
+
+  qrCodeElement.appendChild(qrSvgWrapper);
+  qrCodeElement.appendChild(pixCopia);
+
+  pixCopia.addEventListener("click", async () => {
+    if (navigator.clipboard) {
+      await navigator.clipboard.writeText(pixResultado);
+      window.alert("Chave copiada para a área de transferência.");
+    }
+  });
 }
 
 /** Deletes the QRCODE Element */
@@ -265,6 +292,7 @@ window.document.addEventListener("DOMContentLoaded", async () => {
     btnGerarPix.disabled = true;
   });
   cidadeSelect.addEventListener("change", () => {
+    deleteQrCode();
     btnGerarPix.disabled = false;
   });
   valorInput.addEventListener("focus", (ev) => {
@@ -302,6 +330,7 @@ window.document.addEventListener("DOMContentLoaded", async () => {
       amount: Number(valor), // Valor padrão
       txid: "Doação Central de Cidadania", // Descrição
     };
+    deleteQrCode();
     createPixQrCode(chavePix, cidade, opcoes);
   });
 });
